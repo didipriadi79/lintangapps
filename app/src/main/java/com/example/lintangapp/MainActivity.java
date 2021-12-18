@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.loader.app.LoaderManager;
 import androidx.loader.content.AsyncTaskLoader;
 import androidx.loader.content.Loader;
 
@@ -17,15 +18,17 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.lintangapp.github.GithubView;
+import com.example.lintangapp.github.GithubViewAdapter;
 import com.example.lintangapp.github.NetworkUtils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.IOException;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public abstract class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<GithubView>> {
 
     ConstraintLayout layoutEmpty;
+    GithubViewAdapter adapter;
 
     EditText searchUser;
     ListView listUser;
@@ -126,5 +129,30 @@ public class MainActivity extends AppCompatActivity {
             adapter.addAll(data);
             showJsonDataView();
         }
+    }
+
+
+    private void showJsonDataView(){
+
+    }
+
+    public void searchRepo(View view){
+        makeGithubSearchQuery();
+    }
+
+    private void makeGithubSearchQuery() {
+        String githubQuery = searchUser.getText().toString();
+
+        Bundle queryBundle = new Bundle();
+        queryBundle.putString(GITHUB_QUERY_TAG, githubQuery);
+
+        LoaderManager loaderManager = getSupportLoaderManager();
+        Loader<String> githubSearchLoader = loaderManager.getLoader(GITHUB_SEARCH_LOADER);
+        if (githubSearchLoader == null){
+            loaderManager.initLoader(GITHUB_SEARCH_LOADER, queryBundle, this);
+        } else {
+            loaderManager.restartLoader(GITHUB_SEARCH_LOADER, queryBundle, this);
+        }
+
     }
 }
