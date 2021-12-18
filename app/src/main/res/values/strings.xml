@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">LintangApp</string>
     <string name="noData">Tidak Ada Data</string>
-    <string name="bSubmit">Submit data</string>
+    <string name="bSubmit">Submit</string>
 </resources>

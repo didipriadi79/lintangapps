@@ -7,6 +7,10 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.lintangapp.adapter.NumbersView;
+
+import java.util.ArrayList;
+
 public class AddUserActivity extends AppCompatActivity {
 
     EditText inputName;
@@ -22,6 +26,8 @@ public class AddUserActivity extends AppCompatActivity {
         inputRole = findViewById(R.id.inputRole);
         addValue = findViewById(R.id.addValue);
 
+        final ArrayList<NumbersView> arrayList = new ArrayList<NumbersView>();
+
         addValue.setOnClickListener(v -> {
             String name = inputName.getText().toString();
             String role = inputRole.getText().toString();
@@ -29,7 +35,7 @@ public class AddUserActivity extends AppCompatActivity {
             Intent intent = new Intent(AddUserActivity.this, MyUserActivity.class);
             intent.putExtra("name", name);
             intent.putExtra("role", role);
-
+            arrayList.add(new NumbersView(R.drawable.plus, name, role));
             startActivity(intent);
         });
 

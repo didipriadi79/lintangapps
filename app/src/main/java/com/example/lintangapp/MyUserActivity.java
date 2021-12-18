@@ -46,10 +46,8 @@ public class MyUserActivity extends AppCompatActivity {
             role_S = (String) savedInstanceState.getSerializable("role");
 
         }
-        arrayList.add(new NumbersView(R.drawable.plus, name_S, role_S));
 
         NumbersViewAdapter numbersArrayAdapter = new NumbersViewAdapter(this, arrayList);
-
         ListView numbersListView = findViewById(R.id.listFav);
         numbersListView.setAdapter(numbersArrayAdapter);
 
